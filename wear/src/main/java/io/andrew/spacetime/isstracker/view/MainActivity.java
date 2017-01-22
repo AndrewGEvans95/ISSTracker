@@ -1,11 +1,17 @@
-package io.andrew.spacetime.isstracker;
+package io.andrew.spacetime.isstracker.view;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.wearable.activity.WearableActivity;
 import android.support.wearable.view.BoxInsetLayout;
 import android.view.View;
 import android.widget.TextView;
 
+import io.andrew.spacetime.isstracker.R;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -18,6 +24,7 @@ public class MainActivity extends WearableActivity {
   private TextView mTextView;
   private TextView mClockView;
 
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -26,6 +33,22 @@ public class MainActivity extends WearableActivity {
     mContainerView = (BoxInsetLayout) findViewById(R.id.container);
     mTextView = (TextView) findViewById(R.id.text);
     mClockView = (TextView) findViewById(R.id.clock);
+
+    //This will receive the bundled message from the ListenerService class
+    IntentFilter messageFilter = new IntentFilter(Intent.ACTION_SEND);
+    MessageReceiver messageReceiver = new MessageReceiver();
+    LocalBroadcastManager.getInstance(this).registerReceiver(messageReceiver, messageFilter);
+
+  }
+
+  //Receives bundled message from BroadcastReceiver
+  public class MessageReceiver extends BroadcastReceiver {
+    @Override
+    public void onReceive(Context context, Intent intent) {
+      String message = intent.getStringExtra("message");
+      // Display message in UI
+      mTextView.setText(message);
+    }
   }
 
   @Override public void onEnterAmbient(Bundle ambientDetails) {

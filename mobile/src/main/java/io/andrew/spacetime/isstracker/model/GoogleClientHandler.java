@@ -1,4 +1,4 @@
-package io.andrew.spacetime.isstracker;
+package io.andrew.spacetime.isstracker.model;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,6 +6,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
+import io.andrew.spacetime.isstracker.presenter.listeners.Nodes;
+import io.andrew.spacetime.isstracker.view.MainActivity;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -19,9 +21,14 @@ public class GoogleClientHandler extends Thread{
   public GoogleApiClient client;
   public String nodeId;
   public Thread rThread;
+  Nodes sub;
 
   public GoogleClientHandler(){
 
+  }
+
+  public GoogleClientHandler(Nodes s){
+    sub=s;
   }
 
   /**
@@ -52,7 +59,8 @@ public class GoogleClientHandler extends Thread{
           Log.e("retrieveDeviceNode", "Device found: " + nodes.get(0).getDisplayName());
           nodeId = nodes.get(0).getId();
           //Send toast now
-          sendData();
+          //sendData();
+          sub.setState(nodeId);
         }
         else{
           Log.e("retrieveDeviceNode", "No devices found");
@@ -64,15 +72,16 @@ public class GoogleClientHandler extends Thread{
     rThread.start();
   }
 
-  public void sendData() {
+  public void sendData(final String payload) {
     Log.e("sendToast", "sendToast called");
     if (nodeId != null) {
       Log.e("sendToast", "node detected");
       new Thread(new Runnable() {
+        String p = payload;
         @Override
         public void run() {
           client.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
-          Wearable.MessageApi.sendMessage(client, nodeId, "Message to be sent", null);
+          Wearable.MessageApi.sendMessage(client, nodeId, p, null);
           Log.e("sendToast", "toast sent");
           client.disconnect();
         }

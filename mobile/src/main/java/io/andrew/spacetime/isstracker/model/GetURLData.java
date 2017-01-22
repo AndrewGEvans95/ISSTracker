@@ -1,9 +1,10 @@
-package io.andrew.spacetime.isstracker;
+package io.andrew.spacetime.isstracker.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.TextView;
+import io.andrew.spacetime.isstracker.presenter.listeners.MiscData;
+import io.andrew.spacetime.isstracker.view.MainActivity;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -17,10 +18,11 @@ public class GetURLData{
 
   public TestAsyncTask testAsyncTask;
   public String allData = "";
+  public MiscData miscData;
 
-
-  public GetURLData(MainActivity ma){
+  public GetURLData(MainActivity ma, MiscData m){
     testAsyncTask = new TestAsyncTask(ma, "http://api.open-notify.org/iss-now.json/");
+    miscData = m;
     Log.e("Async", "Started");
   }
 
@@ -51,6 +53,7 @@ public class GetURLData{
     @Override protected void onPostExecute(String strings) {
       super.onPostExecute(strings);
       Log.e("GetURLData", "Data retrieved: " + allData);
+      miscData.setState(allData);
     }
 
     private String getJSON(String iUrl) {

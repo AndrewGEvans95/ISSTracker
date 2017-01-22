@@ -6,7 +6,8 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.andrew.spacetime.isstracker.MainActivity"
+    tools:context="io.andrew.spacetime.isstracker.view.MainActivity"
+    android:background="@drawable/ic_action_name"
     tools:deviceIds="wear"
     >
 
