@@ -43,21 +43,21 @@ public class GoogleClientHandler extends Thread{
     rThread = new Thread(new Runnable() {
       @Override
       public void run() {
-        Log.e("retrieveDeviceNode", "Looking for device");
+        //Log.e("retrieveDeviceNode", "Looking for device");
         client.blockingConnect(CONNECTION_TIME_OUT_MS, TimeUnit.MILLISECONDS);
         NodeApi.GetConnectedNodesResult result = Wearable.NodeApi.getConnectedNodes(client).await();
         List<Node> nodes = result.getNodes();
         if (nodes.size() > 0) {
-          Log.e("retrieveDeviceNode", "Device found: " + nodes.get(0).getDisplayName());
+          //Log.e("retrieveDeviceNode", "Device found: " + nodes.get(0).getDisplayName());
           //Get the first node in the list
           nodeId = nodes.get(0).getId();
           //set the current NodeID and trigger update for all observers of currentNodeId in DataContainer
           sub.setCurrentNodeId(nodeId);
         }
         else{
-          Log.e("retrieveDeviceNode", "No devices found");
+          //Log.e("retrieveDeviceNode", "No devices found");
         }
-        Log.e("retrieveDeviceNode", "disconnecting from client");
+        //Log.e("retrieveDeviceNode", "disconnecting from client");
         client.disconnect();
       }
     });

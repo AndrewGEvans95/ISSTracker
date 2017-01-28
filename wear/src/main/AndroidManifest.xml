@@ -5,6 +5,7 @@
   <uses-feature android:name="android.hardware.type.watch"/>
 
   <uses-permission android:name="android.permission.WAKE_LOCK"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
 
   <application
       android:allowBackup="true"
@@ -12,6 +13,10 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@android:style/Theme.DeviceDefault">
+
+    <!-- API key for the Android Maps API v2. The value is defined as a string resource. -->
+    <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAeF42WL7woibiYE-kgylQFnHxm3MlVhds"/>
 
     <service android:name=".presenter.ListenerService">
       <intent-filter>

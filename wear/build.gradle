@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+  defaultConfig {
+    multiDexEnabled true
+  }
   compileSdkVersion 25
   buildToolsVersion "23.0.3"
   defaultConfig {
@@ -21,6 +24,8 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
   compile 'com.google.android.support:wearable:2.0.0-beta1'
-  compile 'com.google.android.gms:play-services-wearable:10.0.1'
   provided 'com.google.android.wearable:wearable:2.0.0-beta1'
+  // Include the Google Maps Android API from Google Play Services.
+  compile 'com.google.android.gms:play-services-maps:10.0.1'
+  compile 'com.google.android.gms:play-services-wearable:10.0.1'
 }

@@ -1,6 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
+  defaultConfig {
+    multiDexEnabled true
+  }
   compileSdkVersion 25
   buildToolsVersion "23.0.3"
   defaultConfig {
@@ -25,7 +28,9 @@ dependencies {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
   wearApp project(':wear')
-  compile 'com.google.android.gms:play-services:10.0.1'
   compile 'com.android.support:appcompat-v7:25.1.0'
   testCompile 'junit:junit:4.12'
+  compile 'com.android.support:design:25.1.0'
+  compile 'com.google.android.gms:play-services-maps:10.0.1'
+  compile 'com.google.android.gms:play-services:10.0.1'
 }

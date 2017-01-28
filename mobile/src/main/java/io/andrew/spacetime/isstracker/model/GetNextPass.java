@@ -12,22 +12,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by Andrew on 1/18/2017.
+ * Created by Andrew on 1/25/2017.
  */
 
-public class GetURLData{
+
+public class GetNextPass{
 
   public TestAsyncTask testAsyncTask;
   public String allData = "";
   public DataContainer dataContainer;
 
-  public GetURLData(MainActivity ma, DataContainer m){
-    testAsyncTask = new TestAsyncTask(ma, "http://api.open-notify.org/iss-now.json/");
+  //Async task for MainActivity
+  public GetNextPass(MainActivity ma, DataContainer m, double lat, double lng){
+    String fullURL = "http://api.open-notify.org/iss-pass.json?lat=" + lat + "&lon=" + lng;
+    testAsyncTask = new TestAsyncTask(ma, fullURL);
     dataContainer = m;
     //Log.e("Async", "Started");
   }
-  public GetURLData(UpdaterService ma, DataContainer m){
-    testAsyncTask = new TestAsyncTask(ma, "http://api.open-notify.org/iss-now.json/");
+
+  //Async task for UpdaterService
+  public GetNextPass(UpdaterService ma, DataContainer m, double lat, double lng){
+    String fullURL = "http://api.open-notify.org/iss-pass.json?lat=" + lat + "&lon=" + lng;
+    testAsyncTask = new TestAsyncTask(ma, fullURL);
     dataContainer = m;
     //Log.e("Async", "Started");
   }
@@ -60,8 +66,8 @@ public class GetURLData{
 
     @Override protected void onPostExecute(String strings) {
       super.onPostExecute(strings);
-      //Log.e("GetURLData", "Data retrieved: " + allData);
-      dataContainer.setRawData(allData);
+      //Log.e("GetNextPassData", "Data retrieved: " + allData);
+      dataContainer.setNextPassData(allData);
     }
 
     private String getJSON(String iUrl) {

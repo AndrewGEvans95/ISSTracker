@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
@@ -11,11 +12,53 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.andrew.spacetime.isstracker.view.MainActivity"
     >
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/nextPassTitle"
+      android:text="Next ISS flyby based on current location"
+      />
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="2dip"
+      android:id="@+id/horizontalBar"
+      android:layout_below="@id/nextPassTitle"
+      android:background="#10000000" />
+  <ListView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/nextPassList"
+      android:layout_below="@+id/horizontalBar"
+      android:text="Determining next pass..."
+      />
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="2dip"
+      android:id="@+id/horizontalBar2"
+      android:layout_below="@+id/nextPassList"
+      android:background="#10000000" />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/connectionState"
+      android:layout_below="@+id/horizontalBar2"
+      android:text="Not currently connected to watch."
+      />
+
+  <fragment
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:layout_below="@id/horizontalBar2"/>
 
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:id="@+id/issData"
-      android:text="Hello World!"
+      android:text="Loading data..."
+      android:background="#09000000"
+      android:layout_below="@id/horizontalBar2"
       />
+
 </RelativeLayout>

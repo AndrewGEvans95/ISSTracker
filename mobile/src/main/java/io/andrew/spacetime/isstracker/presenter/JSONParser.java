@@ -1,6 +1,7 @@
 package io.andrew.spacetime.isstracker.presenter;
 
 import android.util.Log;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +20,7 @@ public class JSONParser {
       data = new JSONObject(j);
     }
     catch (JSONException e){
-      Log.e("JSONParser", e.toString());
+      //Log.e("JSONParser", e.toString());
     }
   }
 
@@ -30,13 +31,13 @@ public class JSONParser {
       rec = data.getJSONObject("iss_position");
     }
     catch (JSONException e){
-      Log.e("JSONParser", e.toString());
+      //Log.e("JSONParser", e.toString());
     }
     try {
       lat = rec.getString("latitude");
     }
     catch (JSONException e){
-      Log.e("JSONParser", e.toString());
+      //Log.e("JSONParser", e.toString());
     }
     return lat;
   }
@@ -47,12 +48,12 @@ public class JSONParser {
     try {
       rec = data.getJSONObject("iss_position");
     } catch (JSONException e) {
-      Log.e("JSONParser", e.toString());
+      //Log.e("JSONParser", e.toString());
     }
     try {
       lon = rec.getString("longitude");
     } catch (JSONException e) {
-      Log.e("JSONParser", e.toString());
+      //Log.e("JSONParser", e.toString());
     }
     return lon;
   }

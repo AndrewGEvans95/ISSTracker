@@ -14,6 +14,13 @@ public class DataContainer {
   //Data that has been retrieved from GetURLData
   private String rawData;
 
+  //Data that has been retrieved from GetNextPAss
+  private String nextPassData;
+
+  private String nextPassDataPayload;
+
+  private String[] nextPassArray;
+
   //String will be set by update method in NodeObserver class
   /**
    * miscData.setPayload(payload);
@@ -27,7 +34,10 @@ public class DataContainer {
   public String getRawData() {
     return rawData;
   }
+  public String getNextPassData(){return nextPassData;}
   public String getPayload() {return payload;}
+  public String getNextPassDataPayload() {return nextPassDataPayload;}
+  public String[] getNextPassArray(){return nextPassArray;}
 
   //Update the value of setNodeId
   public void setCurrentNodeId(String currentNodeId) {
@@ -41,6 +51,12 @@ public class DataContainer {
     notifyAllObservers();
   }
 
+  //Update the value of nextPassData and notify all Observers
+  public void setNextPassData(String nextPassData){
+    this.nextPassData = nextPassData;
+    notifyAllObservers();
+  }
+
   //Update the value of payload and notify all Observers
   public void setPayload(String payload){
     this.payload = payload;
@@ -51,6 +67,12 @@ public class DataContainer {
   public void setPayloadSilent(String payload){
     this.payload = payload;
   }
+
+  //Update the value of nextPassPayload without notifying Observers
+  public void setNextPassDataPayloadSilent(String nextPassDataPayload) { this.nextPassDataPayload=nextPassDataPayload; }
+
+  //Updated the value of nextPassArray without notifying Observers
+  public void setNextPassArraySilent(String[] nextPassArray){ this.nextPassArray=nextPassArray; }
 
   public void attach(Observer observer){
     observers.add(observer);

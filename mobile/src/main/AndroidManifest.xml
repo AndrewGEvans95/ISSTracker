@@ -6,6 +6,11 @@
   <uses-permission android:name="android.permission.BLUETOOTH" />
   <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
+  <uses-feature android:name="android.hardware.location.gps" />
+  <uses-permission android:name="android.permission.VIBRATE"/>
 
   <application
       android:allowBackup="true"
@@ -13,6 +18,11 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
+
+    <!-- API key for the Android Maps API v2. The value is defined as a string resource. -->
+    <meta-data android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyAeF42WL7woibiYE-kgylQFnHxm3MlVhds"/>
+
     <activity android:name=".view.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -20,6 +30,17 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
+
+    <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
+    <receiver android:name=".presenter.servicerunner.StartOnBootReceiver" android:enabled="true" android:exported="false">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+      </intent-filter>
+    </receiver>
+
+    <service
+        android:name=".presenter.servicerunner.UpdaterService"
+        android:exported="false"/>
   </application>
 
 </manifest>
